@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Consulta Produto</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <style>
+            body{
+                background-color: lightgreen;
+            }
+            
+          .menu{
+                position: absolute;
+                background-color: #A9A9A9;
+                margin-top: -10px;
+                margin-left: -8px;
+                height: 60px;
+                width: 100%;
+            }
+            
+             .cadastros{
+               text-decoration: none;
+               width: 200px;
+               height: 20px;
+               margin-bottom: 10px;
+               margin-top: -5px;
+               background-color: #A9A9A9;
+               border-radius: 30px;
+            }
+            
+            a{
+               font-size: 16px;
+               text-decoration: none;
+               width: 150px;
+               height: 10px;
+               margin-bottom: 10px;
+               margin-top: -5px;
+               background-color: #fff;
+               border-radius: 30px;
+            }
+            
+            .seta-baixo:before {
+            content: "";
+            margin-left:130px;
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+            border-top: 15px solid #FA8072;
+            }
+
+            .dp-menu ul {
+                list-style-type: none;
+                padding: 0;
+            }
+
+
+            .dp-menu ul li {
+                display: inline;
+                position: relative;
+            }
+
+            .dp-menu ul li a {
+
+                text-decoration: none;
+                display: inline-block;
+                padding: 10px;
+                transition: background .3s;
+            }
+
+            /*sub menu*/
+            .dp-menu ul ul {
+                display: none;
+                left: 0;
+                position: absolute;
+            }
+
+            .dp-menu ul li:hover ul {
+                display: block;
+            }
+
+            .dp-menu ul ul {
+                width: 150px
+            }
+
+            .dp-menu ul ul li a {
+                display: block;
+            }
+            
+            .container{
+                width: 90%;
+                margin-left: auto;
+                margin-right: auto;
+                border-radius: 10px;
+                padding: 100px;
+            }
+            
+            label{
+                font-size: 20px;
+            }
+            
+            .id{
+                width: 150px;
+                height: 30px;
+               background-color: #fff;
+               border-radius: 30px
+               
+            }
+            
+            .descricao{
+                width: 700px;
+                height: 30px;
+                background-color: #fff;
+               border-radius: 30px;
+            }
+            
+            .botao{
+                width: 100px;
+                height: 30px;
+                background-color: #99ccff;
+                border-radius: 30px;   
+            }
+            
+            iframe{
+               width: 98%;
+               margin-top: -30px;
+               margin-left: 15px;
+               background-color: #fff;
+               height: 600px;
+            }
+            
+            .footer {
+            position:absolute;
+            bottom:0;
+            width:100%;
+            background-color: #A9A9A9;
+            margin-left: -8px;
+            text-align: center;
+            height: 30px;
+            
+             }
+            
+           
+        </style>
+    </head>
+    <body>
+        <div class="menu">
+     <nav class="dp-menu">
+        <ul>
+            <li><a class="cadastros" href="#"><font color="black"><b>Consulta Produto</b></font><div class="seta-baixo"></div></a>
+                <ul>
+                    <li><a href="cadastroCategoria.html">Cadastro de Categoria</a></li>
+                    <li><a href="cadastroProduto.html">Cadastro de Produto</a></li>
+                    <li><a href="consultaProduto.html">Consulta Produto</a></li>
+                </ul>
+            </li>
+            
+        </ul>
+     </nav>
+        </div>
+        <div class="container">
+            <form class="formularioIdDescricao" action="">
+               
+                <label for="id">Id</label> 
+                <input type="text" id="id" class="id" />
+                <label for="descricao">Descricao</label>
+                <input type="text" id="descricao" class="descricao"/>
+                <input type="button" value="Pesquisar" class="botao"/>
+            </form>
+        </div>
+        
+        <iframe src="" name="meuframe" ></iframe> <br>
+        
+        <div class="footer">
+                <label>Copyrigth @ Livre</label>
+          </div>
+        
+    </body>
+</html>

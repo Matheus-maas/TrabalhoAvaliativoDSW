@@ -1,0 +1,125 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+   <head>
+        <title>Menu</title>
+        <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0"> </meta> </meta>
+        <style>
+            body{
+                background-color: lightgreen;
+            }
+            
+          .menu{
+                position: fixed;
+                display: block;
+                background-color: #A9A9A9;
+                margin-top: -10px;
+                margin-left: -8px;
+                height: 60px;
+                width: 100%;
+            }
+            
+             .cadastros{
+               text-decoration: none;
+               width: 100px;
+               height: 20px;
+               margin-bottom: 10px;
+               margin-top: -5px;
+               background-color: #A9A9A9;
+               border-radius: 30px;
+            }
+            
+            a{
+               text-decoration: none;
+               width: 150px;
+               height: 10px;
+               margin-bottom: 10px;
+               margin-top: -5px;
+               background-color: #fff;
+               border-radius: 30px;
+            }
+            
+            .seta-baixo:before {
+            content: "";
+            margin-left: 70px;
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+            border-top: 15px solid #FA8072;
+            }
+
+            .dp-menu ul {
+                list-style-type: none;
+                padding: 0;
+            }
+
+
+            .dp-menu ul li {
+                display: inline;
+                position: relative;
+            }
+
+            .dp-menu ul li a {
+
+                text-decoration: none;
+                display: inline-block;
+                padding: 10px;
+                transition: background .3s;
+            }
+
+            /*sub menu*/
+            .dp-menu ul ul {
+                display: none;
+                left: 0;
+                position: absolute;
+            }
+
+            .dp-menu ul li:hover ul {
+                display: block;
+            }
+
+            .dp-menu ul ul {
+                width: 150px
+            }
+
+            .dp-menu ul ul li a {
+                display: block;
+            }
+            
+            .footer {
+            position:absolute;
+            bottom:0;
+            width:100%;
+            background-color: #A9A9A9;
+            margin-left: -8px;
+            text-align: center;
+            height: 30px;
+            
+             }
+             
+           
+        </style>
+    </head>
+    <body>
+        <div class="menu">
+     <nav class="dp-menu">
+        <ul>
+            <li><a class="cadastros" href="#"><font color="black"><b>Cadastros</b></font><div class="seta-baixo"></div></a>
+                <ul>
+                    <li><a href="cadastroCategoria.html">Cadastro de Categoria</a></li>
+                    <li><a href="cadastroProduto.html">Cadastro de Produto</a></li>
+                    <li><a href="consultaProduto.html">Consulta Produto</a></li>
+                </ul>
+            </li>
+            
+        </ul>
+    </nav>
+        </div> <br> 
+            <div class="footer">
+                <label>Copyrigth @ Livre</label>
+    </div>
+        </br>
+    </body>
+</html>
+
