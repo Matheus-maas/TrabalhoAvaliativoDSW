@@ -187,10 +187,10 @@ and open the template in the editor.
             <form class="formularioIdDescricao" action="">
                
                 <label for="id">Id</label> 
-                <input type="text" id="id" class="id" />
+                <input type="text" id="id" class="id" name="id" />
                 <label for="descricao">Descricao</label>
-                <input type="text" id="descricao" class="descricao"/>
-                <input type="button" value="Salvar" class="botao"/>
+                <input type="text" id="descricao" class="descricao" name="descricao"/>
+                <input type="button" value="Salvar" class="botao" onclick="gravar()"/>
             </form>
         </div>
         
@@ -233,9 +233,8 @@ and open the template in the editor.
             
              function gravar() {
                 var dados = {
-                             descricao: document.getElementsByName("descricao")[0].value,
-                             preco: document.getElementsByName("preco")[0].value,
-                             estoque: document.getElementsByName("estoque")[0].value
+                             id: document.getElementsByName("id") [0].value,
+                             descricao: document.getElementsByName("descricao")[0].value
                            };
                 var json = JSON.stringify(dados);       
                 
