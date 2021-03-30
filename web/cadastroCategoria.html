@@ -166,6 +166,8 @@ and open the template in the editor.
            
         </style>
     </head>
+    
+    
     <body>
         <div class="menu">
      <nav class="dp-menu">
@@ -216,6 +218,38 @@ and open the template in the editor.
     
     <tr></tr>
     <tr></tr>
+    
+    <script>
+           var xhttp = new XMLHttpRequest();
+            function loadDoc() {
+                xhttp.onreadystatechange = function () {
+                    if (this.readyState === 4 && this.status === 200) {
+                         display(this.responseText);
+                    }
+                };
+                xhttp.open("GET", "http://localhost:8080/TrabalhoAvaliativoDSW/apirest/categoria", true);
+                xhttp.send();
+            }
+            
+             function gravar() {
+                var dados = {
+                             descricao: document.getElementsByName("descricao")[0].value,
+                             preco: document.getElementsByName("preco")[0].value,
+                             estoque: document.getElementsByName("estoque")[0].value
+                           };
+                var json = JSON.stringify(dados);       
+                
+                xhttp.open("POST", "http://localhost:8080/TrabalhoAvaliativoDSW/apirest/categoria", true);
+                xhttp.setRequestHeader("Content-Type", "application/json");
+                xhttp.onreadystatechange = function () {
+                    if (this.readyState === 4 && this.status === 200) {
+                        document.getElementById("result").innerHTML = this.responseText;
+                    }
+                };                
+                xhttp.send(json);
+            }
+            
+        </script>
     
           <div class="footer">
                 <label>Copyrigth @ Livre</label>
