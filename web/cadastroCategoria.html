@@ -9,6 +9,7 @@ and open the template in the editor.
         <title>Cadastro Categoria</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
          <style>
             body{
                 background-color: lightgreen;
@@ -190,35 +191,38 @@ and open the template in the editor.
                 <input type="text" id="id" class="id" name="id" />
                 <label for="descricao">Descricao</label>
                 <input type="text" id="descricao" class="descricao" name="descricao"/>
-                <input type="button" value="Salvar" class="botao" onclick="gravar()"/>
+                <input type="button" value="Salvar" class="botao" id="salvar"/>
             </form>
         </div>
         
-                <table  class="tabela">
-    <tr>
-        <th>Id</th>
-        <th>Descrição</th>
-        <th></th>
-        <th></th>
-        <th></th>
-        <th></th>
-        <th></th>
-    </tr>
-    <tr>
-        
-    </tr>
-    
-    <tr>
-        
-    </tr>
-    
-    <tr>
-        
-    </tr>
-    
-    <tr></tr>
-    <tr></tr>
-    
+       <div>
+           <input type="button" id="search" value="Carregar" onclick="display()" />
+            <table style="width:100%; background-color: #fff" >
+               
+                <tr>
+                    <th>ID</th>
+                    <th>Descrição</th>
+                </tr>
+                <tbody id="categorias">
+                    <tr >
+                        <td>Jill</td>
+                        <td>Smith</td>
+                        <td><button type="button" class="alterar">Alterar</button></td>
+                        <td><button type="button" class="excluir">Excluir</button></td>
+                    </tr>
+                    <tr>
+                        <td>Eve</td>
+                        <td>Jackson</td>
+                        <td><button type="button" class="alterar">Alterar</button></td>
+                        <td><button type="button" class="excluir">Excluir</button></td>
+                    </tr>
+                </tbody>
+
+            </table>
+</div>
+           
+       
+              
     <script>
            var xhttp = new XMLHttpRequest();
             function loadDoc() {
@@ -229,6 +233,18 @@ and open the template in the editor.
                 };
                 xhttp.open("GET", "http://localhost:8080/TrabalhoAvaliativoDSW/apirest/categoria", true);
                 xhttp.send();
+            }
+            
+            function display(dados){
+               var obj = JSON.parse(dados); 
+               var text="";
+               for (var ob in obj) {
+                    text += "<tr>";
+                    text += "<td>" + obj[ob].idcategoria + "</td>";
+                    text += "<td>" + obj[ob].descricao + "</td>";
+                    text += "</tr>";
+                }
+                document.getElementById("categoria").innerHTML = text;
             }
             
              function gravar() {
@@ -248,6 +264,42 @@ and open the template in the editor.
                 xhttp.send(json);
             }
             
+            $("#salvar").click(function () {
+                    var payload = {
+                        id: $("#id").val(),
+                        descricao: $("#descricao").val()
+                    };
+
+                    payload = JSON.stringify(payload);
+
+                    $.ajax({
+                        type: "POST",
+                        url: "http://localhost:8080/TrabalhoAvaliativoDSW/apirest/categoria",
+                        data: payload,
+                        dataType: 'json',
+                        contentType: "application/json; charset=utf-8",
+                        success: function (data, status) {
+                            alert('inserido com sucesso ');
+                        }
+                    });
+                });
+                
+                $ ( "#search" ) . click ( function  ( )  {
+                    $ . get (  "http://localhost:8080/TrabalhoAvaliativoDSW/apirest/categoria" ,  function  ( data ,  status )  {
+                        display ( data ) ;
+                    } ) ;
+                } ) ;
+            
+              function display(dados) {
+            var text = "";
+            for (ob in dados) {
+                text += "<tr>";
+                text += "<td>" + dados[ob].id + "</td>";
+                text += "<td>" + dados[ob].descricao + "</td>";
+                text += "</tr>";
+            }
+            document.getElementById("categorias").innerHTML = text;
+        }
         </script>
     
           <div class="footer">
