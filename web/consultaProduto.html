@@ -9,6 +9,7 @@ and open the template in the editor.
         <title>Consulta Produto</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
    <style>
             body{
                 background-color: lightgreen;
@@ -138,16 +139,6 @@ and open the template in the editor.
             
              }
              
-             .tabela{
-               width: 98%;
-               margin-top: -30px;
-               margin-left: 15px;
-               background-color: #fff;
-               height: 600px;
-               border-collapse: collapse;
-               border: 1px solid black;
-             }
-             
              th,td{
                  font-size: 20px;
                  height: 20px;
@@ -155,6 +146,13 @@ and open the template in the editor.
                  border-bottom: 1px solid #ddd;
              }
             
+             .botaocarregar{
+                color: #C00;
+                width: 100px;
+                height: 30px;
+                background-color: #99ccff;
+                border-radius: 30px;  
+             }
            
         </style>
     </head>
@@ -181,39 +179,104 @@ and open the template in the editor.
                 <label for="descricao">Descricao</label>
                 <input type="text" id="descricao" class="descricao"/>
                 <input type="button" value="Pesquisar" class="botao"/>
+                <input type="button" id="search" value="Carregar" onclick="display()" class="botaocarregar" />
             </form>
         </div>
-            <table  class="tabela">
-    <tr>
-        <th>Id</th>
-        <th>Descrição</th>
-        <th>Preço</th>
-        <th>Estoque</th>
-        <th>Categoria</th>
-        <th></th>
-        <th></th>
-    </tr>
-    <tr>
+   <div>
+           <input type="button" id="search" value="Carregar" onclick="display()" />
+            <table style="width:100%; background-color: #fff" >
+               
+                <tr>
+                    <th>ID</th>
+                    <th>Descrição</th>
+                    <th>Preço</th>
+                    <th>Estoque</th>
+                    <th>Categoria</th>
+                </tr>
+                <tbody id="produtos">
+                   
+                </tbody>
+
+            </table>
+</div>
         
-    </tr>
-    
-    <tr>
-        
-    </tr>
-    
-    <tr>
-        
-    </tr>
-    
-    <tr></tr>
-    <tr></tr>
-    
-  
-</table>
+        <script>
+         
+
+            
+           var xhttp = new XMLHttpRequest();
+            function loadDoc() {
+                xhttp.onreadystatechange = function () {
+                    if (this.readyState === 4 && this.status === 200) {
+                         display(this.responseText);
+                    }
+                };
+                xhttp.open("GET", "http://localhost:8080/TrabalhoAvaliativoDSW/apirest/categoria", true);
+                xhttp.send();
+            }
+            
+            /*
+             function gravar() {
+                var dados = {
+                             id: document.getElementsByName("id") [0].value,
+                             descricao: document.getElementsByName("descricao")[0].value
+                           };
+                var json = JSON.stringify(dados);       
+                
+                xhttp.open("POST", "http://localhost:8080/TrabalhoAvaliativoDSW/apirest/categoria", true);
+                xhttp.setRequestHeader("Content-Type", "application/json");
+                xhttp.onreadystatechange = function () {
+                    if (this.readyState === 4 && this.status === 200) {
+                        document.getElementById("result").innerHTML = this.responseText;
+                    }
+                };                
+                xhttp.send(json);
+            }
+            */
+            $("#salvar").click(function () {
+                    var payload = {
+                        id: $("#id").val(),
+                        descricao: $("#descricao").val()
+                    };
+
+                    payload = JSON.stringify(payload);
+
+                    $.ajax({
+                        type: "POST",
+                        url: "http://localhost:8080/TrabalhoAvaliativoDSW/apirest/categoria",
+                        data: payload,
+                        dataType: 'json',
+                        contentType: "application/json; charset=utf-8",
+                        success: function (data, status) {
+                            alert('inserido com sucesso ');
+                        }
+                    });
+                });
+                
+                $ ( "#search" ) . click ( function  ( )  {
+                    $ . get (  "http://localhost:8080/TrabalhoAvaliativoDSW/apirest/categoria" ,  function  ( data ,  status )  {
+                        display ( data ) ;
+                    } ) ;
+                } ) ;
+            
+              function display(dados) {
+            var text = "";
+            for (ob in dados) {
+                text += "<tr>";
+                text += "<td>" + dados[ob].id + "</td>";
+                text += "<td>" + dados[ob].descricao + "</td>";
+                text += "<td>" + dados[ob]. + "</td>";
+                text += "<td>" + "<td><button type='button' class='alterar'>Alterar</button></td>" + "</td>";
+                text += "<td>" + "<td><button type='button' class='excluir'>Excluir</button></td>" + "</td>";
+                text += "</tr>";
+            }
+            document.getElementById("produtos").innerHTML = text;
+        }
+        </script>
        
         <div class="footer">
                 <label>Copyrigth @ Livre</label>
           </div>
-        
+       
     </body>
 </html>

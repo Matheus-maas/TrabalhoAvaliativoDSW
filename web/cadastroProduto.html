@@ -9,6 +9,7 @@ and open the template in the editor.
         <title>Cadastro Produto</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <style>
             body{
                 background-color: lightgreen;
@@ -186,7 +187,7 @@ and open the template in the editor.
                 <label for="descricao">Descrição</label> <br> <br>
                 <input type="text" id="descricao" /> <br> <br>
                 <label for="categoria">Categoria</label> <br> <br>
-                <select class="opcaocategoria" >
+                <select class="opcaocategoria" id="combobox" >
                 <option></option>
                 </select> <br> <br>
                 <label for="preco">Preço</label> <br> <br>
@@ -194,12 +195,92 @@ and open the template in the editor.
                 <label for="estoque">Estoque</label> <br> <br>
                 <input type="text" id="estoque" /> <br> <br>
                 <br>
-                <input type="button" value="Salvar" class="botaoSalvar" />
+                <input type="button" value="Salvar" class="botaoSalvar" id="salvar" />
                 
                 
             </form>
         </div>
         <input type="reset" value="Cancelar" class="botaoCancelar" /> <br>
+        
+         <script>
+            $(document).ready(function () {
+                //consultar dados
+                $("#combobox").click(function () {
+                    $.get("http://localhost:8080/TrabalhoAvaliativoDSW/apirest/produto", function (data, status) {
+                        display(data);
+                    });
+                });
+             
+             
+           var xhttp = new XMLHttpRequest();
+            function loadDoc() {
+                xhttp.onreadystatechange = function () {
+                    if (this.readyState === 4 && this.status === 200) {
+                         display(this.responseText);
+                    }
+                };
+                xhttp.open("GET", "http://localhost:8080/TrabalhoAvaliativoDSW/apirest/produto", true);
+                xhttp.send();
+            }
+            
+            
+            /* function gravar() {
+                var dados = {
+                             id: document.getElementsByName("id") [0].value,
+                             descricao: document.getElementsByName("descricao")[0].value
+                           };
+                var json = JSON.stringify(dados);       
+                
+                xhttp.open("POST", "http://localhost:8080/TrabalhoAvaliativoDSW/apirest/categoria", true);
+                xhttp.setRequestHeader("Content-Type", "application/json");
+                xhttp.onreadystatechange = function () {
+                    if (this.readyState === 4 && this.status === 200) {
+                        document.getElementById("result").innerHTML = this.responseText;
+                    }
+                };                
+                xhttp.send(json);
+            }
+            */
+            $("#salvar").click(function () {
+                    var payload = {
+                        descricao: $("#descricao").val(),
+                        valor: $("#preco").val(),
+                        qtdeEstoque: $("#estoque")
+                    };
+
+                    payload = JSON.stringify(payload);
+
+                    $.ajax({
+                        type: "POST",
+                        url: "http://localhost:8080/TrabalhoAvaliativoDSW/apirest/produto",
+                        data: payload,
+                        dataType: 'json',
+                        contentType: "application/json; charset=utf-8",
+                        success: function (data, status) {
+                            alert('inserido com sucesso ');
+                        }
+                    });
+                });
+                
+                $ ( "#search" ) . click ( function  ( )  {
+                    $ . get (  "http://localhost:8080/TrabalhoAvaliativoDSW/apirest/categoria" ,  function  ( data ,  status )  {
+                        display ( data ) ;
+                    } ) ;
+                } ) ;
+            
+              function display(dados) {
+            var text = "";
+            for (ob in dados) {
+                text += "<tr>";
+                text += "<td>" + dados[ob].id + "</td>";
+                text += "<td>" + dados[ob].descricao + "</td>";
+                text += "</tr>";
+            }
+            document.getElementById("categorias").innerHTML = text;
+        }
+       
+        </script>
+        
         <div class="footer">
                 <label>Copyrigth @ Livre</label>
           </div>

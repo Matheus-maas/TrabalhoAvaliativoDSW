@@ -146,15 +146,6 @@ and open the template in the editor.
             
              }
             
-             .tabela{
-               width: 98%;
-               margin-top: -30px;
-               margin-left: 15px;
-               background-color: #fff;
-               height: 600px;
-               border-collapse: collapse;
-               border: 1px solid black;
-             }
              
             th,td{
                  
@@ -164,7 +155,13 @@ and open the template in the editor.
                  border-bottom: 1px solid #ddd;
              }
             
-           
+             .botaocarregar{
+               color: #C00;
+                width: 100px;
+                height: 30px;
+                background-color: #99ccff;
+                border-radius: 30px;  
+             }
         </style>
     </head>
     
@@ -192,11 +189,12 @@ and open the template in the editor.
                 <label for="descricao">Descricao</label>
                 <input type="text" id="descricao" class="descricao" name="descricao"/>
                 <input type="button" value="Salvar" class="botao" id="salvar"/>
+                <input type="button" id="search" value="Carregar" onclick="display()" class="botaocarregar" />
             </form>
         </div>
         
        <div>
-           <input type="button" id="search" value="Carregar" onclick="display()" />
+           
             <table style="width:100%; background-color: #fff" >
                
                 <tr>
@@ -204,18 +202,7 @@ and open the template in the editor.
                     <th>Descrição</th>
                 </tr>
                 <tbody id="categorias">
-                    <tr >
-                        <td>Jill</td>
-                        <td>Smith</td>
-                        <td><button type="button" class="alterar">Alterar</button></td>
-                        <td><button type="button" class="excluir">Excluir</button></td>
-                    </tr>
-                    <tr>
-                        <td>Eve</td>
-                        <td>Jackson</td>
-                        <td><button type="button" class="alterar">Alterar</button></td>
-                        <td><button type="button" class="excluir">Excluir</button></td>
-                    </tr>
+                   
                 </tbody>
 
             </table>
@@ -235,18 +222,7 @@ and open the template in the editor.
                 xhttp.send();
             }
             
-            function display(dados){
-               var obj = JSON.parse(dados); 
-               var text="";
-               for (var ob in obj) {
-                    text += "<tr>";
-                    text += "<td>" + obj[ob].idcategoria + "</td>";
-                    text += "<td>" + obj[ob].descricao + "</td>";
-                    text += "</tr>";
-                }
-                document.getElementById("categoria").innerHTML = text;
-            }
-            
+            /*
              function gravar() {
                 var dados = {
                              id: document.getElementsByName("id") [0].value,
@@ -263,7 +239,7 @@ and open the template in the editor.
                 };                
                 xhttp.send(json);
             }
-            
+            */
             $("#salvar").click(function () {
                     var payload = {
                         id: $("#id").val(),
@@ -296,6 +272,8 @@ and open the template in the editor.
                 text += "<tr>";
                 text += "<td>" + dados[ob].id + "</td>";
                 text += "<td>" + dados[ob].descricao + "</td>";
+                text += "<td>" + "<td><button type='button' class='alterar'>Alterar</button></td>" + "</td>";
+                text += "<td>" + "<td><button type='button' class='excluir'>Excluir</button></td>" + "</td>";
                 text += "</tr>";
             }
             document.getElementById("categorias").innerHTML = text;
