@@ -38,11 +38,30 @@ public class DaoCategoria {
       return em.find(Categoria.class, pId);    
     }   
     
+    /*
     public static boolean excluir(Integer pId){
       EntityManagerFactory emf = Persistence.createEntityManagerFactory("Trabalho1RESTAPIPU");  
       EntityManager em = emf.createEntityManager();
       em.remove(pId); 
       return true;
+    }
+*/
+    
+    public static boolean excluir(Integer pId) {
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("Trabalho1RESTAPIPU");
+        EntityManager em = emf.createEntityManager();
+        Categoria cg = em.find(Categoria.class, pId);
+        try {
+            em.getTransaction().begin();
+            em.remove(cg);
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+            return false;
+        } finally {
+            em.close();
+        }
+        return true;
     }
     
     public static List<Categoria> getAll(){

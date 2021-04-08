@@ -260,6 +260,7 @@ and open the template in the editor.
                     });
                 });
                 
+              
                 $ ( "#search" ) . click ( function  ( )  {
                     $ . get (  "http://localhost:8080/TrabalhoAvaliativoDSW/apirest/categoria" ,  function  ( data ,  status )  {
                         display ( data ) ;
@@ -272,12 +273,43 @@ and open the template in the editor.
                 text += "<tr>";
                 text += "<td>" + dados[ob].id + "</td>";
                 text += "<td>" + dados[ob].descricao + "</td>";
-                text += "<td>" + "<td><button type='button' class='alterar'>Alterar</button></td>" + "</td>";
-                text += "<td>" + "<td><button type='button' class='excluir'>Excluir</button></td>" + "</td>";
+                text += "<td>" + '<a href=# onclick=editar(' + dados[ob].id + ') class=editar> Alterar </a>' + "</td>";
+                text += "<td>" + '<a href=# onclick=excluir(' + dados[ob].id + ') class=excluir> Excluir </a>' + "</td>";
                 text += "</tr>";
             }
             document.getElementById("categorias").innerHTML = text;
         }
+        
+            function editar(id) {
+                    var payload = {
+                        id: id,
+                        descricao: $("#descricao").val(),
+                    };
+
+                    payload = JSON.stringify(payload);
+
+                    $.ajax({
+                        type: "PUT",
+                        url: "http://localhost:8080/TrabalhoAvaliativoDSW/apirest/categoria",
+                        data: payload,
+                        dataType: 'json',
+                        contentType: "application/json; charset=utf-8",
+                        success: function (data, status) {
+                            alert('alterado com sucesso ');
+                        }
+                    });
+                }
+                
+                function excluir(id) {
+
+                    $.ajax({
+                        type: "DELETE",
+                        url: "http://localhost:8080/TrabalhoAvaliativoDSW/apirest/categoria/excluir/" + id,
+                        success: function (data, status) {
+                            alert('deletado com sucesso');
+                        }
+                    });
+                }
         </script>
     
           <div class="footer">
