@@ -241,26 +241,25 @@ and open the template in the editor.
                 xhttp.send(json);
             }
             */
-            $("#salvar").click(function () {
-                    var payload = {
-                        descricao: $("#descricao").val(),
-                        valor: $("#preco").val(),
-                        qtdeEstoque: $("#estoque")
-                    };
-
-                    payload = JSON.stringify(payload);
-
-                    $.ajax({
-                        type: "POST",
-                        url: "http://localhost:8080/TrabalhoAvaliativoDSW/apirest/produto",
-                        data: payload,
-                        dataType: 'json',
-                        contentType: "application/json; charset=utf-8",
-                        success: function (data, status) {
-                            alert('inserido com sucesso ');
-                        }
-                    });
+             $("#salvar").click(function () {
+                var payload = {
+                    descricao: $("#descricao").val(),
+                    valor: $("#preco").val(),
+                    qtdeEstoque: $("#estoque").val(),
+                };
+                payload = JSON.stringify(payload);
+                $.ajax({
+                    type: "POST",
+                    url: "http://localhost:8080/TrabalhoAvaliativoDSW/apirest/produto",
+                    data: payload,
+                    dataType: 'json',
+                    contentType: "application/json; charset=utf-8",
+                    success: function (data, status) {
+                        alert('inserido com sucesso ');
+                        setTimeout("window.location='consultaProduto.html'", 500);
+                    }
                 });
+            });
                 
                 $ ( "#search" ) . click ( function  ( )  {
                     $ . get (  "http://localhost:8080/TrabalhoAvaliativoDSW/apirest/categoria" ,  function  ( data ,  status )  {

@@ -31,7 +31,7 @@ public class Produto implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="idproduto")
-    private int integer;
+    private int id;
     @Column(name="descricao")
     private String descricao;
     @Column(name="valor")
@@ -46,12 +46,12 @@ public class Produto implements Serializable{
     }
 
     
-    public int getInteger() {
-        return integer;
+    public int getId() {
+        return id;
     }
 
-    public void setInteger(int integer) {
-        this.integer = integer;
+    public void setId(int integer) {
+        this.id = integer;
     }
 
     public String getDescricao() {

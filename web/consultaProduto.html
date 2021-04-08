@@ -154,6 +154,13 @@ and open the template in the editor.
                 border-radius: 30px;  
              }
            
+              .botaocarregartodos{
+                color: #C00;
+                width: 100px;
+                height: 30px;
+                background-color: #99ccff;
+                border-radius: 30px;  
+             }
         </style>
     </head>
     <body>
@@ -179,11 +186,12 @@ and open the template in the editor.
                 <label for="descricao">Descricao</label>
                 <input type="text" id="descricao" class="descricao"/>
                 <input type="button" value="Pesquisar" class="botao"/>
-                <input type="button" id="search" value="Carregar" onclick="display()" class="botaocarregar" />
+                <input type="button" id="search" value="Carregar" onclick="" class="botaocarregar" />
+                <input type="button" id="searchTodos" value="CarregarTodos" onclick="display()" class="botaocarregartodos" />
             </form>
         </div>
    <div>
-           <input type="button" id="search" value="Carregar" onclick="display()" />
+           
             <table style="width:100%; background-color: #fff" >
                
                 <tr>
@@ -201,7 +209,14 @@ and open the template in the editor.
 </div>
         
         <script>
-         
+             $(document).ready(function () {
+                //consultar todos os produtos
+                $("#searchTodos").click(function () {
+                    $.get("http://localhost:8080/TrabalhoAvaliativoDSW/apirest/produto", function (data, status) {
+                        display(data);
+                    });
+                });
+            });
 
             
            var xhttp = new XMLHttpRequest();
@@ -211,7 +226,7 @@ and open the template in the editor.
                          display(this.responseText);
                     }
                 };
-                xhttp.open("GET", "http://localhost:8080/TrabalhoAvaliativoDSW/apirest/categoria", true);
+                xhttp.open("GET", "http://localhost:8080/TrabalhoAvaliativoDSW/apirest/produto", true);
                 xhttp.send();
             }
             
@@ -233,45 +248,40 @@ and open the template in the editor.
                 xhttp.send(json);
             }
             */
-            $("#salvar").click(function () {
-                    var payload = {
-                        id: $("#id").val(),
-                        descricao: $("#descricao").val()
-                    };
-
-                    payload = JSON.stringify(payload);
-
-                    $.ajax({
-                        type: "POST",
-                        url: "http://localhost:8080/TrabalhoAvaliativoDSW/apirest/categoria",
-                        data: payload,
-                        dataType: 'json',
-                        contentType: "application/json; charset=utf-8",
-                        success: function (data, status) {
-                            alert('inserido com sucesso ');
-                        }
-                    });
-                });
+           
                 
                 $ ( "#search" ) . click ( function  ( )  {
-                    $ . get (  "http://localhost:8080/TrabalhoAvaliativoDSW/apirest/categoria" ,  function  ( data ,  status )  {
+                    $ . get (  "http://localhost:8080/TrabalhoAvaliativoDSW/apirest/produto" ,  function  ( data ,  status )  {
                         display ( data ) ;
                     } ) ;
                 } ) ;
             
-              function display(dados) {
-            var text = "";
-            for (ob in dados) {
-                text += "<tr>";
-                text += "<td>" + dados[ob].id + "</td>";
-                text += "<td>" + dados[ob].descricao + "</td>";
-                text += "<td>" + dados[ob]. + "</td>";
-                text += "<td>" + "<td><button type='button' class='alterar'>Alterar</button></td>" + "</td>";
-                text += "<td>" + "<td><button type='button' class='excluir'>Excluir</button></td>" + "</td>";
-                text += "</tr>";
-            }
-            document.getElementById("produtos").innerHTML = text;
-        }
+             function display(dados) {
+                    var text = "";
+                    for (ob in dados) {
+                        text += "<tr>";
+                        text += "<td>" + dados[ob].id + "</td>";
+                        text += "<td>" + dados[ob].descricao + "</td>";
+                        text += "<td>" + dados[ob].valor + "</td>";
+                        text += "<td>" + dados[ob].qtdeEstoque + "</td>";
+                        text += "<td>" + dados[ob].id + "</td>";
+                        text += "<td>" + '<a href=cadastroProduto.html onclick=editar() class=editar> Alterar </a>' + "</td>";
+                        text += "<td>" + '<a href=# onclick=excluir('+dados[ob].idproduto+') class=excluir> Excluir </a>' + "</td>";
+                        text += "</tr>";
+                    }
+                    document.getElementById("produtos").innerHTML = text;
+                }
+                
+                 function excluir(id) {
+                    
+                    $.ajax({
+                        type: "DELETE",
+                        url: "http://localhost:8080/TrabalhoAvaliativoDSW/apirest/produto/excluir/" + id,
+                        success: function (data, status) {
+                            alert('deletado com sucesso');
+                        }
+                    });
+                }
         </script>
        
         <div class="footer">
