@@ -6,6 +6,7 @@ import entidades.Produto;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.Produces;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -57,15 +58,15 @@ public class ProdutoResource {
     }
     
     @Path("excluir/{ProdutoId}")
-    @PUT
+    @DELETE
     @Consumes(MediaType.APPLICATION_JSON)
-    public boolean excluirProduto(@PathParam("produtoId") String id) {
+    public boolean excluirProduto(@PathParam("ProdutoId") String id) {
       return DaoProduto.excluir(Integer.parseInt(id));
     }
     
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-     public boolean inserirProduto(String content) {
+     public boolean inserirProduto(String content) 2
         Gson gson = new Gson();
         Produto ct = (Produto) gson.fromJson(content, Produto.class);
         return DaoProduto.persist(ct);

@@ -39,12 +39,32 @@ public class DaoProduto {
       return em.find(Produto.class, pId);
     }   
     
+    /*
     public static boolean excluir(Integer pId){
       EntityManagerFactory emf = Persistence.createEntityManagerFactory("Trabalho1RESTAPIPU");  
       EntityManager em = emf.createEntityManager();
       em.remove(pId); 
       return true;
     }
+    */
+    
+     public static boolean excluir(Integer pId) {
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("Trabalho1RESTAPIPU");
+        EntityManager em = emf.createEntityManager();
+        Produto cg = em.find(Produto.class, pId);
+        try {
+            em.getTransaction().begin();
+            em.remove(cg);
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+            return false;
+        } finally {
+            em.close();
+        }
+        return true;
+    }
+    
     public static List<Produto> getAll(){
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("Trabalho1RESTAPIPU");
         EntityManager em = emf.createEntityManager();

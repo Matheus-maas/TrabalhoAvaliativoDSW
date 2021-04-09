@@ -8,6 +8,7 @@ import entidades.Produto;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.Produces;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -66,9 +67,9 @@ public class CategoriaResource {
     }
      
     @Path("excluir/{CategoriaId}")
-    @PUT
+    @DELETE
     @Consumes(MediaType.APPLICATION_JSON)
-    public boolean excluirCategoria(@PathParam("categoriaId") String id) {
+    public boolean excluirCategoria(@PathParam("CategoriaId") String id) {
       return DaoCategoria.excluir(Integer.parseInt(id));
     }
 }
