@@ -66,7 +66,7 @@ public class ProdutoResource {
     
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-     public boolean inserirProduto(String content) 2
+     public boolean inserirProduto(String content) {
         Gson gson = new Gson();
         Produto ct = (Produto) gson.fromJson(content, Produto.class);
         return DaoProduto.persist(ct);
