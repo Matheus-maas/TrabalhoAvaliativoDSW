@@ -265,8 +265,8 @@ and open the template in the editor.
                         text += "<td>" + dados[ob].valor + "</td>";
                         text += "<td>" + dados[ob].qtdeEstoque + "</td>";
                         text += "<td>" + dados[ob].id + "</td>";
-                        text += "<td>" + '<a href=cadastroProduto.html onclick=editar() class=editar> Alterar </a>' + "</td>";
-                        text += "<td>" + '<a href=# onclick=excluir('+dados[ob].id+') class=excluir> Excluir </a>' + "</td>";
+                        text += "<td>" + '<a href=cadastroProduto.html onclick=editar() class=editar style=color:blue> Alterar </a>' + "</td>";
+                        text += "<td>" + '<a href=# onclick=excluir('+dados[ob].id+') class=excluir style=color:red> Excluir </a>' + "</td>";
                         text += "</tr>";
                     }
                     document.getElementById("produtos").innerHTML = text;
